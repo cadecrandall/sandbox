@@ -1,0 +1,58 @@
+# write a method to accept a string & return a list
+# str of chinese text & split it into words 
+# find the longest word first
+# assume a set of valid chinese words
+
+
+# abcdefghijkl
+make a substring 
+if valid:
+    # there could be a longer valid string 
+    add to list
+    search(rhs, word_list)
+else:
+    continue search on lhs 
+    continue search on rhs 
+
+
+finished = dict()
+# "abcdefg": ["abc", "defg"]
+
+def search(s, word_list):
+    # splits string into the smallest number of words
+    if s in finished:
+        return finished[s]
+    elif is_valid(s):
+        word_list.append(s)
+        return word_list
+    else:
+        string_pairs = [] # O(n)
+        # filter string pairs to only valid LHS words
+
+        resulting_word_lists = [search(rhs, word_list.append(lhs)) for lhs, rhs in string_pairs]
+        argmin = argmin(resulting_word_lists, len)
+
+        finished[s] = resulting_word_lists[argmin]
+
+        return resulting_word_lists[argmin]            
+
+# abcdefghijkl
+
+# greedy: [abc, d, e, f, g, h, ...]
+# alt: [ab, cdefghij]
+
+def split(s):
+    word_list = []
+    max_len = max(valid_words)
+    while s:
+        substr = s[:max_len]
+        while not is_valid(substr):
+            substr = substr[:-1]
+        
+        word_list.append(substr)
+        
+        # chop off the substring from input string
+        s = s[len(substr): ]
+
+    return word_list
+
